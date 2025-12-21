@@ -1,0 +1,18 @@
+<?php
+
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch ($uri) {
+    case '/':
+        require_once '../app/controllers/test.php';
+        break;
+
+    case '/test':
+        require_once '../app/controllers/test.php';
+        break;
+
+    default:
+        http_response_code(404);
+        echo "Not Found";
+}
