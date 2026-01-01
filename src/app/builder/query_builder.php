@@ -1,12 +1,6 @@
 <?php
 
-// select
-//     id, name, date
-// from
-//     gggTable
-// where
-//     id = 1 and data > yyyy/mm/dd
-// ;
+require_once __DIR__ . '/../models/db.php'; 
 
 class QueryBuilder {
     private $tableName;
@@ -58,6 +52,57 @@ class QueryBuilder {
     }
 
     public function get() {
-        return $this;
+
+        $query = "select ";
+
+        # select columns
+        if (empty($this->selects)) {
+            $query .= "* ";
+        }
+        else {
+            $query .= implode(", ", $this->selects) . " ";
+        }
+
+        # from
+        $query .= "from " . $this->tableName . " ";
+
+        #where
+        if (!empty($this->orWheres) || !empty($this->andWheres)) {
+            $query .= "where ";
+        }
+
+        # andWhere
+        if (!empty($this->andWheres)) {
+            $query .= "(";
+            $lastKey = array_key_last($this->andWheres);
+            foreach ($this->andWheres as $index => $condition) {
+                if ($index == $lastKey) {
+                    $query .= $condition["column"] . " " . $condition["operator"] . " " . $condition["value"] . ") ";
+                }
+                else {
+                    $query .= $condition["column"] . " " . $condition["operator"] . " " . $condition["value"] . " and ";
+                }
+            }
+        }
+
+        # orWhere
+        if (!empty($this->orWheres)) {
+            $query .= empty($this->andWheres) ? "" : " or ";
+            $lastKey = array_key_last($this->orWheres);
+            foreach ($this->orWheres as $index => $condition) {
+                if ($index == $lastKey) {
+                    $query .= $condition["column"] . " " . $condition["operator"] . " " . $condition["value"];
+                }
+                else {
+                    $query .= $condition["column"] . " " . $condition["operator"] . " " . $condition["value"] . " or ";
+                }
+            }
+        }
+         
+        print $query . "\n";
+        #order by
+
+        $db = Db::getConnection();
+        return $db->query($query)->fetchAll();
     }
 }
