@@ -36,4 +36,5 @@ services:
     volumes:
        - ./mysql/mysql-init:/docker-entrypoint-initdb.d
        - ../db:/var/lib/mysql
+       - ../src/batch:/batch
     restart: unless-stopped
