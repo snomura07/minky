@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__ . '/read_env.php';
 require __DIR__ . '/../../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -8,10 +9,10 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
     'driver'    => 'mysql',
-    'host'      => 'db',
-    'database'  => 'myappdb',
-    'username'  => 'appuser',
-    'password'  => 'appuserpass',
+    'host'      => getenv('DB_HOST'),
+    'database'  => getenv('DB_NAME'),
+    'username'  => getenv('DB_USER'),
+    'password'  => getenv('DB_PASS'),
     'charset'   => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     'prefix'    => '',
