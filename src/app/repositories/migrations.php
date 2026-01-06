@@ -9,6 +9,16 @@ class MigrationRepository
         return Migrations::all();
     }
 
+    public function getLatestRevNumber()
+    {
+        return Migrations::orderBy('rev', 'desc')->first()->rev;
+    }
+
+    public function create(array $data): Migrations
+    {
+        return Migrations::create($data);
+    }
+
     public function findByName($name)
     {
         return Migrations::where('name', $name)->first();
