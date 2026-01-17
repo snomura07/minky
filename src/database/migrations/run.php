@@ -2,13 +2,19 @@
 
 require_once __DIR__ . '/../../bootstrap/app.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../app/actions/migration.php'; 
 
-$migration = require __DIR__ . '/2025_01_01_000001_add.php';
+$migrationDir = __DIR__;
+$migration    = new Migration($migrationDir);
 
-if (isset($argv[1]) && $argv[1] === 'rollback') {
-    $migration->down();
+if (!isset($argv[1])) {
+    $migration->up($migrationDir);
 } 
 else {
-    $migration->up();
+    if($argv[1] === 'rollback') {
+        $migration->rollback($migrationDir);
+    }
+    else if($argv[1] === 'status') {
+        $migration->status($migrationDir);
+    }    
 }
-

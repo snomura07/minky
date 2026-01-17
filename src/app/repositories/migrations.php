@@ -24,6 +24,11 @@ class MigrationRepository
         return Migrations::where('name', $name)->first();
     }
 
+    public function findByRev($rev)
+    {
+        return Migrations::where('rev', $rev)->get();
+    }
+
     public function isExistsByName($name)
     {
         return Migrations::where('name', $name)->exists();
