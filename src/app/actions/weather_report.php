@@ -32,5 +32,10 @@ class WeatherReportAction
 
         return $this->weatherReportsRepository->create($weatherData);
     }
-    
+ 
+    public function getDailyStats()
+    {
+        return $this->weatherReportsRepository->getDailyWeatherStats();
+    }
+
 }
