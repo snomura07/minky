@@ -4,9 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 class WeatherReports extends Model
 {
     protected $table   = 'weather_reports';
+    protected $primaryKey = 'id';
+    public $incrementing = true; 
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [
+        'city_id',
         'latitude',
         'longitude',
         'measured_time',
