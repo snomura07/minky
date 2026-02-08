@@ -12,6 +12,9 @@ RUN dnf -y install \
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Node.js 18
+RUN dnf module -y install nodejs:18
+
 RUN mkdir -p /run/nginx /run/php-fpm
 
 WORKDIR /var/www/html

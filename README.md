@@ -2,5 +2,5 @@
 - @app container
 ~~~
 composer install
+npm install
 ~~~
-
