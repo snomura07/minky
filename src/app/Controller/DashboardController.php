@@ -13,8 +13,9 @@ class DashboardController
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        $this->render(__DIR__ . '/../../view/dashboard.php', [
-            'title' => '商品一覧',
+        $this->render(__DIR__ . '/../../view/layout.php', [
+            'title'      => 'ダッシュボード',
+            'view'       => 'dashboard',
             'csrf_token' => $_SESSION['csrf_token'],
         ]);
     }
