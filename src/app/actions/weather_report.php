@@ -11,7 +11,7 @@ class WeatherReportAction
         $this->weatherReportsRepository = new WeatherReportsRepository();
     }
 
-    public function fetchAndStore(float $lat, float $lon): WeatherReports
+    public function fetchAndStore(int $cityId, float $lat, float $lon): WeatherReports
     {
         $url = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation&timezone=Asia%2FTokyo";
 
@@ -21,6 +21,7 @@ class WeatherReportAction
         $obs = $data["current"];
 
         $weatherData = [
+            'city_id' => $cityId,
             'latitude' => $lat,
             'longitude' => $lon,
             'measured_time' => $obs['time'],
@@ -38,4 +39,8 @@ class WeatherReportAction
         return $this->weatherReportsRepository->getDailyWeatherStats();
     }
 
+    public function getDailyStatsByCityId(int $cityId)
+    {
+        return $this->weatherReportsRepository->getDailyWeatherStatsByCityId($cityId);
+    }
 }

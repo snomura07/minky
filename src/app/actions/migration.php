@@ -65,9 +65,9 @@ class Migration
 
     public function status()
     {
-        $migrations = $this->migrationRepository->getAll();
-
         $this->scanAndRegistFiles();        
+
+        $migrations = $this->migrationRepository->getAll();
         $this->outMigrationStatus($migrations);
     }
 
